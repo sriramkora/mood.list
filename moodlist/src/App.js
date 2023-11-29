@@ -1,29 +1,24 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./Pages/HomePage.jsx";
+import LoginPage from "./Pages/LoginPage.jsx";
+import ResultPage from "./Pages/ResultPage.jsx";
+import AccountPage from "./Pages/AccountPage.jsx";
 import logo from "./logo.svg";
 import "./App.css";
-import LoginPage from "./Components/LoginPage.jsx";
 
 function App() {
   return (
-    <div className="LoginPage">
-      <LoginPage />
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />}></Route>
+          <Route path="/home" element={<HomePage />}></Route>
+          <Route path="/result" element={<ResultPage />}></Route>
+          <Route path="/account" element={<AccountPage />}></Route>
+        </Routes>
+      </Router>
     </div>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Hello world
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-  );
+  )
 }
 
 export default App;
