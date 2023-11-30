@@ -1,3 +1,14 @@
+# running backend
+
+enter backend folder and run
+### `npm install` and `npm start`
+
+the backend will listen on: localhost:8080
+
+username: abc@abc.com  
+password: abcabc
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
