@@ -1,0 +1,25 @@
+.loginPage {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginFormContainer {
+  width: 40rem;
+}
+.loginForm {
+  max-width: 40rem;
+  border-style: solid;
+  border-color: rgb(180, 234, 172);
+  border-width: 0.5 rem;
+}
+h1 {
+  align-self: center;
+  text-align: center;
+  color: rgb(90, 231, 19);
+}
+img {
+    padding-left: 80%;
+  max-width: 10rem;
+  max-height: 10rem;
+}
