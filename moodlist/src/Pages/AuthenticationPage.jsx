@@ -6,7 +6,8 @@ import classes from "../CSS/AunthenticationPage.module.css";
 
 function AuthenticationPage() {
   return (
-    <>
+    <div className={classes.authenticationPage}
+    >
       <div className={classes.logo}>
         <h1>Mood.List</h1>
       </div>
@@ -17,11 +18,11 @@ function AuthenticationPage() {
           </div>
         </div>
       </div>
-      <img
+      {/* <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/1982px-Spotify_icon.svg.png"
         alt="spotifyLogo"
-      />
-    </>
+      /> */}
+    </div>
   );
 }
 
