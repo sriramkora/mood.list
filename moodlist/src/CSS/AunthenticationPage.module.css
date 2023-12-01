@@ -1,5 +1,5 @@
 .loginPage {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -8,10 +8,9 @@
   background-size: 20%;
   background-position: 95% 90%;
   background-repeat: no-repeat;
-  height: 95vh;
+  height: 99vh;
   width: 100%;
 }
-
 
 .loginFormContainer {
   width: 40rem;
@@ -22,13 +21,9 @@
   border-color: rgb(180, 234, 172);
   border-width: 0.5 rem;
 }
-h1 {
+.logo {
+  padding: 1rem;
   align-self: center;
   text-align: center;
   color: rgb(90, 231, 19);
-}
-img {
-    padding-left: 80%;
-  max-width: 10rem;
-  max-height: 10rem;
 }

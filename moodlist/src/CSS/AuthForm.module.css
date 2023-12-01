@@ -2,6 +2,9 @@
   max-width: 20rem;
   margin: 2rem auto;
 }
+.form h1 {
+  color: rgb(90, 231, 19);
+}
 
 .form label,
 .form input,
