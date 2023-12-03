@@ -1,7 +1,11 @@
 const express = require('express');
+const fetch = require('node-fetch');
+const qs = require("qs"); 
+
 const { add, get } = require('../data/user');
-const { createJSONToken, isValidPassword } = require('../util/auth');
 const { isValidEmail, isValidText } = require('../util/validation');
+const U = require('../util/auth');
+const C = require('../constants/consts');
 
 const router = express.Router();
 
@@ -33,7 +37,7 @@ router.post('/signup', async (req, res, next) => {
 
   try {
     const createdUser = await add(data);
-    const authToken = createJSONToken(createdUser.email);
+    const authToken = U.createJSONToken(createdUser.email);
     res
       .status(201)
       .json({ message: 'User created.', user: createdUser, token: authToken });
@@ -42,27 +46,85 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+router.get('/login', async (req, res) => {
+  let state = U.generateUUID();
+  let scope = C.spotifyAuthzScope;
+  let redirect_uri = C.APP_HOST + '/callback/spotifyAuthz';
 
-  let user;
-  try {
-    user = await get(email);
-  } catch (error) {
-    return res.status(401).json({ message: 'Authentication failed.' });
-  }
-
-  const pwIsValid = await isValidPassword(password, user.password);
-  if (!pwIsValid) {
-    return res.status(422).json({
-      message: 'Invalid credentials.',
-      errors: { credentials: 'Invalid email or password entered.' },
-    });
-  }
-
-  const token = createJSONToken(email);
-  res.json({ token });
+  res.redirect(302, C.spotifyAccountsHost + '/authorize?' +
+    qs.stringify({
+      response_type: 'code',
+      client_id: C.spotifyClientId,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }));
 });
+
+router.get('/callback/spotifyAuthz', async (req, res) => {
+  error = req.query.error;
+  state = req.query.state;
+  if (error != null){
+    res.status(401);
+    res.send("Unable to Authenticate. Error: " + error);
+  }
+  else if (state === null){
+    res.status(400);
+    res.send("State mismatch. Aborting");
+  }
+  else{
+    code = req.query.code;
+    let tokenResponse = await getAccessTokens(code);
+    let userProfile = await getUserProfile(tokenResponse.access_token)
+    res.status(200);
+    res.send("Authenticated successfully");
+  }
+});
+
+async function getAccessTokens(authzCode){
+  let headers = new Headers(
+    {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": U.getBasicAuthHeader()
+    });
+  
+  let body = new URLSearchParams({
+    "grant_type" : "authorization_code",
+    "code" : authzCode,
+    "redirect_uri" : C.APP_HOST + '/callback/spotifyAuthz'
+  });
+
+  let reqOptions = {
+    method: 'POST',
+    headers: headers,
+    body: body,
+    redirect: 'follow'
+  };
+
+  let jsonResp = await 
+    fetch(C.spotifyAccountsHost + "/api/token", reqOptions)
+    .then(res => res.json())
+  // console.log("Response of API Token = ", jsonResp);
+  return jsonResp;
+}
+
+async function getUserProfile(acsToken){
+  let headers = new Headers(
+    {
+      "Authorization": U.getOAuthHeader(acsToken)
+    });
+  
+  let reqOptions = {
+      method: 'GET',
+      headers: headers,
+      redirect: 'follow'
+    };
+
+  let jsonResp = await 
+    fetch(C.spotifyApisHost + "/v1/me", reqOptions)
+    .then(res => res.json())
+  console.log("User Profile = ", jsonResp)
+  return jsonResp;
+}
 
 module.exports = router;
