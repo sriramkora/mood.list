@@ -10,7 +10,7 @@
     height: 904px;
     overflow: hidden;
     position: relative;
-    width: 1440px;
+    width: 100%;
   }
   
   .accountPage .overlap {
@@ -18,7 +18,7 @@
     left: 0;
     position: absolute;
     top: 0;
-    width: 1440px;
+    width: 100%;
   }
   
   .accountPage .rectangle {
@@ -26,7 +26,7 @@
     left: 4px;
     position: absolute;
     top: 4px;
-    width: 1436px;
+    width: 100%;
   }
   
   .accountPage .headerRect {
@@ -35,7 +35,7 @@
     left: 0;
     position: absolute;
     top: 0;
-    width: 1440px;
+    width: 100%;
   }
   
   .accountPage .textWrapper {
@@ -253,5 +253,78 @@
     text-align: center;
     top: 0;
     width: 240px;
+  }
+  
+  .accountpage .playlistPlayer {
+    border-radius: 12px;
+    /* padding-left: 100px; */
+    position: relative;
+    /* left: 100px; */
+    /* top: 100px; */
+    /* width: 50%; */
+    /* float: left; */
+    display: inline-block;
+  }
+
+  .accountPage .textWrapper6 {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 48px;
+    font-weight: 600;
+    height: 80px;
+    left: 81px;
+    letter-spacing: 0;
+    line-height: 62.4px;
+    position: absolute;
+    top: 130px;
+    width: 236px;
+  }
+
+  .accountPage .playlistsWrapper {
+    height: 288px;
+    left: 81px;
+    position: absolute;
+    top: 200px;
+    width: 90%;
+  }
+
+  .accountPage .bigNumber {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 156px;
+    font-weight: 600;
+    /* height: 100px; */
+    /* left: 81px; */
+    letter-spacing: 0;
+    /* line-height: 100px; */
+    /* position: absolute; */
+    /* top: 130px;
+    width: 236px; */
+    width: 156px;
+    height: 156px;
+    /* float: left;   */
+    display: inline-block;
+    position: relative;
+  }
+
+  .accountPage .playlistItem {
+    position: relative;
+    height: 156px;
+    padding-bottom: 20px;
+  }
+
+  .accountPage .addButton {
+    color: #426b1f;
+    /* background-color: #d9d9d9; */
+    /* border-radius: 50px; */
+    height: 150px;
+    width: 150px;
+    /* left: 81px; */
+    position: relative;
+    display: inline-block;
+    /* float: left; */
+    /* left: 25px; */
+    /* bottom: 25px; */
+    top: 15px;
   }
   

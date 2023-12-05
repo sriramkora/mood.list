@@ -8,8 +8,8 @@ export default function AccountPage() {
             date: "Wed, Nov 1",
             weather: "Rainy",
             description: "Lorem ipsum...",
+            embedLink: "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
         },
-        // Add more playlists data here
     ];        
     const user = {
         username: "username",
