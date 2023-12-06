@@ -19,7 +19,7 @@ function AuthForm() {
   return (
     <>
       <Form method="post" className={classes.form}>
-        <h1>Log in</h1>
+        {/* <h1>Log in</h1> */}
         {data && data.errors && (
           <ul>
             {Object.values(data.errors).map((err) => (
@@ -28,20 +28,20 @@ function AuthForm() {
           </ul>
         )}
         {data && data.message && <p>{data.message}</p>}
-        <p>
+        {/* <p>
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" required />
+          <input id="email" type="email" name="email"  />
         </p>
         <p>
           <label htmlFor="image">Password</label>
-          <input id="password" type="password" name="password" required />
-        </p>
+          <input id="password" type="password" name="password"  />
+        </p> */}
         <div className={classes.actions}>
           {/* <Link to={`?mode=${isLogin ? 'signup' : 'login'}`}>
               {isLogin ? 'Create new user' : 'Login'}
             </Link> */}
           <button disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : "Save"}
+            {isSubmitting ? "Submitting..." : "Login using Spotify"}
           </button>
         </div>
       </Form>
