@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, Tab, Button, Form } from "react-bootstrap";
 import { json, redirect } from "react-router-dom";
 import AuthForm from "../Components/AuthForm";
-import classes from "../CSS/AunthenticationPage.module.css";
+import classes from "../CSS/AuthenticationPage.module.css";
 
 function AuthenticationPage() {
   return (

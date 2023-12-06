@@ -1,0 +1,330 @@
+.accountPage {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .accountPage .div {
+    height: 904px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .accountPage .overlap {
+    height: 904px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  .accountPage .rectangle {
+    height: 900px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    width: 100%;
+  }
+  
+  .accountPage .headerRect {
+    background-color: #426b1f;
+    height: 112px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  .accountPage .textWrapper {
+    color: #ffffff;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 48px;
+    font-weight: 600;
+    height: 80px;
+    left: 90px;
+    letter-spacing: 0;
+    line-height: 62.4px;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    width: 236px;
+  }
+  
+  .accountPage .group {
+    height: 48px;
+    left: 1254px;
+    position: absolute;
+    top: 28px;
+    width: 126px;
+  }
+  
+  .accountPage .cartButton {
+    background-color: #ffffff;
+    border-radius: 4px;
+    height: 48px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .accountPage .logoutButton {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 16px;
+    font-weight: 600;
+    height: 21px;
+    left: 34px;
+    letter-spacing: 0;
+    line-height: 20.8px;
+    position: absolute;
+    text-align: center;
+    top: 12px;
+    white-space: nowrap;
+  }
+  
+  .accountPage .playlists {
+    color: transparent;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 24px;
+    font-weight: 600;
+    height: 80px;
+    left: 317px;
+    letter-spacing: 0;
+    line-height: 31.2px;
+    position: absolute;
+    top: 239px;
+    width: 236px;
+  }
+  
+  .accountPage .span {
+    color: #426b1f;
+  }
+  
+  .accountPage .textWrapper3 {
+    color: #000000;
+  }
+  
+  .accountPage .textWrapper4 {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 48px;
+    font-weight: 600;
+    height: 80px;
+    left: 81px;
+    letter-spacing: 0;
+    line-height: 62.4px;
+    position: absolute;
+    top: 413px;
+    width: 236px;
+  }
+  
+  .accountPage .textWrapper5 {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 48px;
+    font-weight: 600;
+    height: 80px;
+    left: 317px;
+    letter-spacing: 0;
+    line-height: 62.4px;
+    position: absolute;
+    top: 159px;
+    width: 358px;
+  }
+  
+  .accountPage .ellipse {
+    background-color: #d9d9d9;
+    border-radius: 102.5px;
+    height: 205px;
+    left: 81px;
+    position: absolute;
+    top: 160px;
+    width: 205px;
+  }
+  
+  .accountPage .overlapWrapper {
+    height: 288px;
+    left: 81px;
+    position: absolute;
+    top: 512px;
+    width: 238px;
+  }
+  
+  .accountPage .overlapGroup1 {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    height: 288px;
+    position: relative;
+    width: 236px;
+  }
+  
+  .accountPage .PlaylistInfo {
+    color: #000000;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    height: 102px;
+    left: 10px;
+    letter-spacing: 0;
+    line-height: 31.2px;
+    position: absolute;
+    top: 186px;
+    width: 213px;
+  }
+  
+  .accountPage .textWrapper6 {
+    font-weight: 700;
+  }
+  
+  .accountPage .textWrapper7 {
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 14px;
+    line-height: 18.2px;
+  }
+  
+  .accountPage .rectangle3 {
+    background-color: #d9d9d9;
+    border: 1px solid;
+    border-color: #000000;
+    box-shadow: 0px 4px 4px #00000040;
+    height: 144px;
+    left: 46px;
+    position: absolute;
+    top: 30px;
+    width: 144px;
+  }
+  
+  .accountPage .overlapGroup1Wrapper {
+    height: 288px;
+    left: 405px;
+    position: absolute;
+    top: 512px;
+    width: 238px;
+  }
+  
+  .accountPage .rectangle4 {
+    background-color: #d9d9d9;
+    border: 1px solid;
+    border-color: #000000;
+    box-shadow: 0px 4px 4px #00000040;
+    height: 144px;
+    left: 44px;
+    position: absolute;
+    top: 30px;
+    width: 144px;
+  }
+  
+  .accountPage .divWrapper {
+    height: 81px;
+    left: 2764px;
+    position: absolute;
+    top: -293px;
+    width: 273px;
+  }
+  
+  .accountPage .overlapGroup2 {
+    height: 81px;
+    position: relative;
+    width: 271px;
+  }
+  
+  .accountPage .rectangle5 {
+    background-color: #426b1f;
+    border-radius: 30px;
+    height: 80px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 271px;
+  }
+  
+  .accountPage .playlist {
+    color: #ffffff;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 32px;
+    font-weight: 600;
+    height: 80px;
+    left: 31px;
+    letter-spacing: 0;
+    line-height: 41.6px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 240px;
+  }
+  
+  .accountpage .playlistPlayer {
+    border-radius: 12px;
+    /* padding-left: 100px; */
+    position: relative;
+    /* left: 100px; */
+    /* top: 100px; */
+    /* width: 50%; */
+    /* float: left; */
+    display: inline-block;
+  }
+
+  .accountPage .textWrapper6 {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 48px;
+    font-weight: 600;
+    height: 80px;
+    left: 81px;
+    letter-spacing: 0;
+    line-height: 62.4px;
+    position: absolute;
+    top: 130px;
+    width: 236px;
+  }
+
+  .accountPage .playlistsWrapper {
+    height: 288px;
+    left: 81px;
+    position: absolute;
+    top: 200px;
+    width: 90%;
+  }
+
+  .accountPage .bigNumber {
+    color: #426b1f;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 156px;
+    font-weight: 600;
+    /* height: 100px; */
+    /* left: 81px; */
+    letter-spacing: 0;
+    /* line-height: 100px; */
+    /* position: absolute; */
+    /* top: 130px;
+    width: 236px; */
+    width: 156px;
+    height: 156px;
+    /* float: left;   */
+    display: inline-block;
+    position: relative;
+  }
+
+  .accountPage .playlistItem {
+    position: relative;
+    height: 156px;
+    padding-bottom: 20px;
+  }
+
+  .accountPage .addButton {
+    color: #426b1f;
+    /* background-color: #d9d9d9; */
+    /* border-radius: 50px; */
+    height: 150px;
+    width: 150px;
+    /* left: 81px; */
+    position: relative;
+    display: inline-block;
+    /* float: left; */
+    /* left: 25px; */
+    /* bottom: 25px; */
+    top: 15px;
+  }
+  

@@ -1,6 +1,9 @@
 const { sign, verify } = require('jsonwebtoken');
 const { compare } = require('bcryptjs');
 const { NotAuthError } = require('./errors');
+const crypto = require("crypto");
+
+const C = require('../constants/consts');
 
 const KEY = 'supersecret';
 
@@ -41,7 +44,22 @@ function checkAuthMiddleware(req, res, next) {
   next();
 }
 
+function generateUUID(){
+  return crypto.randomUUID().toString();
+}
+
+function getBasicAuthHeader(){
+  return 'Basic ' + (new Buffer.from(C.spotifyClientId + ':' + C.spotifyClientsecret).toString('base64'))
+}
+
+function getOAuthHeader(token){
+  return 'Bearer ' + token
+}
+
 exports.createJSONToken = createJSONToken;
 exports.validateJSONToken = validateJSONToken;
 exports.isValidPassword = isValidPassword;
 exports.checkAuth = checkAuthMiddleware;
+exports.generateUUID = generateUUID;
+exports.getBasicAuthHeader = getBasicAuthHeader;
+exports.getOAuthHeader = getOAuthHeader;
