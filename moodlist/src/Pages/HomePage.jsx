@@ -15,8 +15,8 @@ export default function HomePage() {
               <textarea className={classes.input} placeholder="Please enter some text, such as a poem, song lyrics, or an essay. Max 500 words." />
             </div>
             <div className={classes.textWrapper2}>mood.list</div>
-            <div className={classes.group2}>
-            </div>
+            {/* <div className={classes.group2}>
+            </div> */}
           </div>
         </div>
       </div>

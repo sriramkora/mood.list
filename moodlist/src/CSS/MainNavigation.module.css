@@ -4,6 +4,7 @@
   padding: 2rem;
   display: flex;
   justify-content: space-between;
+  padding-left: 90%;
 }
 
 .list {
