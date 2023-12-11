@@ -7,8 +7,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: tunes-app
@@ -22,6 +22,22 @@ spec:
         image: allennyu/tunes-backend:latest
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          periodSeconds: 5
+          failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
 
 ---
 
@@ -35,5 +51,5 @@ spec:
     app: tunes-app
   ports:
     - protocol: TCP
-      port: 8081
+      port: 8080
       targetPort: 8080
