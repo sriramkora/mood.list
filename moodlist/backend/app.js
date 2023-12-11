@@ -3,6 +3,7 @@ const express = require('express');
 
 const eventRoutes = require('./routes/events');
 const authRoutes = require('./routes/auth');
+const auxRoutes = require('./routes/aux');
 const C = require('./constants/consts');
 
 const app = express();
@@ -25,5 +26,7 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-console.log("Starting server on http://localhost:" + C.APP_PORT + "/login")
+app.use(auxRoutes);
+
+console.log("Starting server. To login use: http://localhost:" + C.APP_PORT + "/login")
 app.listen(C.APP_PORT);

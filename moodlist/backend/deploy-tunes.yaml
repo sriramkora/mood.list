@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tunes-app-deployment
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: tunes-app
+  template:
+    metadata:
+      labels:
+        app: tunes-app
+    spec:
+      containers:
+      - name: tunes-app
+        image: allennyu/tunes-backend:latest
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tunes-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: tunes-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8080
