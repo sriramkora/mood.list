@@ -50,34 +50,52 @@ router.get('/login', async (req, res) => {
   let state = U.generateUUID();
   let scope = C.spotifyAuthzScope;
   let redirect_uri = C.APP_HOST + '/callback/spotifyAuthz';
+  console.log(C.spotifyClientId);
+  console.log(C.spotifyClientsecret);
 
-  res.redirect(302, C.spotifyAccountsHost + '/authorize?' +
-    qs.stringify({
-      response_type: 'code',
-      client_id: C.spotifyClientId,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
-    }));
+  res.redirect(
+    302,
+    C.spotifyAccountsHost +
+      "/authorize?" +
+      qs.stringify({
+        response_type: "code",
+        client_id: C.spotifyClientId,
+        scope: scope,
+        redirect_uri: redirect_uri,
+        state: state,
+      })
+  );
 });
 
-router.get('/callback/spotifyAuthz', async (req, res) => {
+router.get("/callback/spotifyAuthz", async (req, res) => {
+  console.log("callback received");
   error = req.query.error;
+  console.log("error: " + error);
   state = req.query.state;
+  console.log("state: " + state);
   if (error != null) {
     res.status(401);
     res.send("Unable to Authenticate. Error: " + error);
-  }
-  else if (state === null) {
+  } else if (state === null) {
     res.status(400);
     res.send("State mismatch. Aborting");
-  }
-  else {
+  } else {
     code = req.query.code;
     let tokenResponse = await getAccessTokens(code);
-    let userProfile = await getUserProfile(tokenResponse.access_token)
-    res.status(200);
-    res.send("Authenticated successfully");
+    let jsonString = JSON.stringify(tokenResponse, null, 2); 
+    console.log(jsonString);
+    let userProfile = await getUserProfile(tokenResponse.access_token);
+    console.log("userprofile :" + userProfile);
+
+    res.redirect("http://localhost:3000/?"+
+    qs.stringify({
+      access_token: tokenResponse.access_token,
+      refresh_token: tokenResponse.refresh_token,
+      expires_in: tokenResponse.expires_in,
+      scope: tokenResponse.scope,
+    }));
+    // res.status(200);
+    // res.send("Authenticated successfully");
   }
 });
 
@@ -109,21 +127,20 @@ async function getAccessTokens(authzCode) {
 }
 
 async function getUserProfile(acsToken) {
-  let headers = new fetch.Headers(
-    {
-      "Authorization": U.getOAuthHeader(acsToken)
-    });
+  let headers = new fetch.Headers({
+    Authorization: U.getOAuthHeader(acsToken),
+  });
 
   let reqOptions = {
-    method: 'GET',
+    method: "GET",
     headers: headers,
-    redirect: 'follow'
+    redirect: "follow",
   };
 
-  let jsonResp = await
-    fetch(C.spotifyApisHost + "/v1/me", reqOptions)
-      .then(res => res.json())
-  console.log("User Profile = ", jsonResp)
+  let jsonResp = await fetch(C.spotifyApisHost + "/v1/me", reqOptions).then(
+    (res) => res.json()
+  );
+  console.log("User Profile = ", jsonResp);
   return jsonResp;
 }
 
