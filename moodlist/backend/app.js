@@ -3,7 +3,7 @@ const express = require('express');
 
 const eventRoutes = require('./routes/events');
 const authRoutes = require('./routes/auth');
-const auxRoutes = require('./routes/aux');
+const auxRoutes = require('./routes/auxiliary');
 const C = require('./constants/consts');
 
 const app = express();
