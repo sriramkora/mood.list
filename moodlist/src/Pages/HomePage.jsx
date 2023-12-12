@@ -11,6 +11,9 @@ export default function HomePage() {
   const refresh_token = searchParams.get("refresh_token");
   const expires_in = searchParams.get("expires_in");
   const scope = searchParams.get("scope");
+  const userid = searchParams.get("id");
+  const email = searchParams.get("email");
+  
   if (!getAuthToken() && !token) {
     console.log("deleting token!");
     localStorage.removeItem('token');
@@ -23,6 +26,9 @@ export default function HomePage() {
     localStorage.setItem("expiration", expiration.toISOString());
     localStorage.setItem("refresh_token", refresh_token);
     localStorage.setItem("scope", scope);
+    localStorage.setItem("userid", userid);
+    localStorage.setItem("email", email);
+
     console.log("token set!")
   }
   return (

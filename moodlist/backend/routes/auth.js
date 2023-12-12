@@ -85,7 +85,7 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
     let jsonString = JSON.stringify(tokenResponse, null, 2); 
     console.log(jsonString);
     let userProfile = await getUserProfile(tokenResponse.access_token);
-    console.log("userprofile :" + userProfile);
+    console.log("userprofile :", userProfile);
 
     res.redirect("http://localhost:3000/?"+
     qs.stringify({
@@ -93,6 +93,8 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
       refresh_token: tokenResponse.refresh_token,
       expires_in: tokenResponse.expires_in,
       scope: tokenResponse.scope,
+      id: userProfile.id,
+      email: userProfile.email,
     }));
   }
 });
