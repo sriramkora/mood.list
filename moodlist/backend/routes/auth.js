@@ -94,13 +94,6 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
       expires_in: tokenResponse.expires_in,
       scope: tokenResponse.scope,
     }));
-    res.redirect("http://localhost:3000/?"+
-    qs.stringify({
-      access_token: tokenResponse.access_token,
-      refresh_token: tokenResponse.refresh_token,
-      expires_in: tokenResponse.expires_in,
-      scope: tokenResponse.scope,
-    }));
   }
 });
 
