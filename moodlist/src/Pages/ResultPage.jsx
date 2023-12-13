@@ -4,7 +4,7 @@ import plusImage from "../Images/plus.svg";
 import checkImage from "../Images/check.svg";
 
 export default function ResultPage() {
-  // Sample data from the backend
+  // Sample data routed from home page
   const playlists = [
     {
       date: "Wed, Nov 1",
@@ -21,7 +21,12 @@ export default function ResultPage() {
         "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
     },
   ];
-  const isClicked = false;
+  const generateText = "Lorem ipsum dolor sit amet, consect";
+  const [isClicked, setIsClicked] = React.useState(false);
+  const handleButtonClick = () => {
+    setIsClicked(!isClicked);
+    console.log("cleec");
+  }
   return (
     <div className={classes.accountPage}>
       <div className={classes.div}>
@@ -59,13 +64,16 @@ export default function ResultPage() {
                   src={checkImage}
                   alt="check"
                   className={classes.addButton}
+                  onClick={handleButtonClick}
                 />
               ) : (
-                <img src={plusImage} alt="plus" className={classes.addButton} />
+                <img src={plusImage} alt="plus" className={classes.addButton} onClick={handleButtonClick} />
               )}
             </div>
           ))}
         </div>
+        <div className={classes.textWrapper8}>Generated from: </div>
+        <div className={classes.textWrapper9}>Lorem ipsum dolor sit amet, consect</div>
       </div>
     </div>
   );

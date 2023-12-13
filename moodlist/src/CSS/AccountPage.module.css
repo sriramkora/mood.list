@@ -183,6 +183,13 @@
     font-size: 14px;
     line-height: 18.2px;
   }
+
+  .accountPage .textWrapper8 {
+    font-weight: 800;
+    position: absolute;
+    top: 206px;
+    left: 81px;
+  }
   
   .accountPage .rectangle3 {
     background-color: #d9d9d9;

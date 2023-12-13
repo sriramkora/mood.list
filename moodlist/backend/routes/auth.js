@@ -101,7 +101,7 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
 });
 
 async function getAccessTokens(authzCode) {
-  let headers = new Headers(
+  let headers = new fetch.Headers(
     {
       "Content-Type": "application/x-www-form-urlencoded",
       "Authorization": U.getBasicAuthHeader()
