@@ -22,9 +22,13 @@ export default function ResultPage() {
     },
   ];
   const generateText = "Lorem ipsum dolor sit amet, consect";
-  const [isClicked, setIsClicked] = React.useState(false);
-  const handleButtonClick = () => {
-    setIsClicked(!isClicked);
+  // const [isClicked, setIsClicked] = React.useState(false);
+  const [isClicked, setIsClicked] = React.useState(new Array(playlists.length).fill(false));
+  const handleButtonClick = (index) => {
+    const newIsClicked = [...isClicked];
+    newIsClicked[index] = !newIsClicked[index];
+    // setIsClicked(!isClicked);
+    setIsClicked(newIsClicked);
     console.log("cleec");
   }
   return (
@@ -59,21 +63,27 @@ export default function ResultPage() {
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
               ></iframe>
-              {isClicked ? (
+              {/* {isClicked[index] ? (
                 <img
                   src={checkImage}
                   alt="check"
                   className={classes.addButton}
-                  onClick={handleButtonClick}
-                />
+                  onClick={() => handleButtonClick(index)}
+                  />
               ) : (
-                <img src={plusImage} alt="plus" className={classes.addButton} onClick={handleButtonClick} />
-              )}
+                <img src={plusImage} alt="plus" className={classes.addButton} />
+              )} */}
+              <img
+                src={isClicked[index] ? checkImage : plusImage}
+                alt={isClicked[index] ? "check" : "plus"}
+                className={classes.addButton}
+                onClick={() => handleButtonClick(index)} // Attach the onClick handler to both images
+              />
             </div>
           ))}
         </div>
         <div className={classes.textWrapper8}>Generated from: </div>
-        <div className={classes.textWrapper9}>Lorem ipsum dolor sit amet, consect</div>
+        <div className={classes.textWrapper9}>"{generateText}"</div>
       </div>
     </div>
   );
