@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "../CSS/HomePage.module.css";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
 import { getAuthToken } from "../util/auth";
 
 export default function HomePage() {
@@ -13,6 +13,7 @@ export default function HomePage() {
   const username = searchParams.get("username");
   const token = searchParams.get("access_token");
   const [textValue, setTextValue] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!getAuthToken() && token) {
@@ -39,7 +40,27 @@ export default function HomePage() {
   }
 
   const handleGenerateClick = () => {
-    console.log('text: ', textValue);
+    const playlists = JSON.stringify([
+      {
+        date: "Wed, Nov 1",
+        weather: "Rainy",
+        description: "Lorem ipsum...",
+        embedLink:
+          "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
+      },
+      {
+        date: "Wed, Nov 1",
+        weather: "Rainy",
+        description: "Lorem ipsum...",
+        embedLink:
+          "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
+      },
+    ]);
+    localStorage.setItem('text', textValue);
+    console.log('text: ', localStorage.getItem('text'));
+    localStorage.setItem('resultplaylists', playlists);
+    console.log('playlists: ', localStorage.getItem('resultplaylists'));
+    navigate('/result');
   };
 
   return (

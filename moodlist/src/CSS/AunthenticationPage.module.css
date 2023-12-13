@@ -1,0 +1,29 @@
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.authenticationPage {
+  background-image: url("https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png");
+  background-size: 20%;
+  background-position: 95% 90%;
+  background-repeat: no-repeat;
+  height: 99vh;
+  width: 100%;
+}
+
+.loginFormContainer {
+  width: 40rem;
+}
+.loginForm {
+  max-width: 40rem;
+  border-style: solid;
+  border-color: rgb(180, 234, 172);
+  border-width: 0.5 rem;
+}
+.logo {
+  padding: 1rem;
+  align-self: center;
+  text-align: center;
+  color: rgb(90, 231, 19);
+}

@@ -5,22 +5,7 @@ import checkImage from "../Images/check.svg";
 
 export default function ResultPage() {
   // Sample data from the backend
-  const playlists = [
-    {
-      date: "Wed, Nov 1",
-      weather: "Rainy",
-      description: "Lorem ipsum...",
-      embedLink:
-        "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-    },
-    {
-      date: "Wed, Nov 1",
-      weather: "Rainy",
-      description: "Lorem ipsum...",
-      embedLink:
-        "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-    },
-  ];
+  const playlists = JSON.parse(localStorage.getItem('resultplaylists'));
   const isClicked = false;
   return (
     <div className={classes.accountPage}>
