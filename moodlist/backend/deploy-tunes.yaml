@@ -20,12 +20,24 @@ spec:
       containers:
       - name: tunes-app
         image: allennyu/tunes-backend:latest
+        env:
+        - name: SPOTIFY_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: SPOTIFY_CLIENT_ID
+        - name: SPOTIFY_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: SPOTIFY_CLIENT_SECRET
         ports:
         - containerPort: 8080
+          name: tunes-http-port
         livenessProbe:
           httpGet:
             path: /live
-            port: 8080
+            port: tunes-http-port
           initialDelaySeconds: 10
           timeoutSeconds: 10
           periodSeconds: 5
@@ -33,7 +45,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /ready
-            port: 8080
+            port: tunes-http-port
           initialDelaySeconds: 10
           timeoutSeconds: 10
           periodSeconds: 10
@@ -45,11 +57,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tunes-app-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec:
   type: LoadBalancer
   selector:
     app: tunes-app
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 80
+      targetPort: tunes-http-port
