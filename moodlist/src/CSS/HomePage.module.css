@@ -18,9 +18,9 @@
   }
   .homePage .group {
     height: 80px;
-    left:40%;
+    left:38%;
     position: relative;
-    top: 82%;
+    top: 80%;
     width: 273px;
   }
   .homePage .overlapGroup {
@@ -59,6 +59,8 @@
     color: black;
     height: 288px;
     position: relative;
+    top: -12%;
+    left: -2%;
     width: 648px;
   }
   .homePage .div {
@@ -87,7 +89,7 @@
     line-height: 62.4px;
     position: absolute;
     text-align: center;
-    top: -5%;
+    top: -10%;
     width: 236px;
   }
   .homePage .group2 {
