@@ -4,7 +4,7 @@
   padding: 2rem;
   display: flex;
   justify-content: space-between;
-  padding-left: 90%;
+  padding-left: 80%;
 }
 
 .list {
@@ -16,6 +16,18 @@
   text-decoration: none;
   color: var(--color-primary-400);
 }
+
+.list button{
+  text-decoration: none;
+  color: var(--color-gray-100);
+  background-color: #45701f;
+  border-radius: 10%;
+}
+
+.list button:hover {
+  color: var(--color-gray-400);
+  background-color: #426b1f;
+}:hover
 
 .list a:hover,
 .list a.active {

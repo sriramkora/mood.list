@@ -1,21 +1,23 @@
-import { Form, NavLink, useRouteLoaderData } from 'react-router-dom';
+import { Form, Link, useRouteLoaderData } from 'react-router-dom';
 
 import classes from '../CSS/MainNavigation.module.css';
 
 function MainNavigation() {
-  const token = useRouteLoaderData('root');
+  // const token = useRouteLoaderData('root');
+  const username = localStorage.getItem('username');
 
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
-          {token && (
+          {/* {token && (< */}
+            <li><Link to="/account">{username}</Link></li>
             <li>
               <Form action="/logout" method="post">
                 <button>Logout</button>
               </Form>
             </li>
-          )}
+          {/* )} */}
         </ul>
       </nav>
     </header>

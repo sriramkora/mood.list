@@ -11,6 +11,7 @@ export default function HomePage() {
   const scope = searchParams.get("scope");
   const userid = searchParams.get("id");
   const email = searchParams.get("email");
+  const username = searchParams.get("username");
   const token = searchParams.get("access_token");
   const [isTokenSet, setIsTokenSet] = useState(false);
 
@@ -24,6 +25,7 @@ export default function HomePage() {
       localStorage.setItem("scope", scope);
       localStorage.setItem("userid", userid);
       localStorage.setItem("email", email);
+      localStorage.setItem("username", username);
 
       console.log("token set!");
 

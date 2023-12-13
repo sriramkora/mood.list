@@ -87,7 +87,7 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
     let userProfile = await getUserProfile(tokenResponse.access_token);
     console.log("userprofile :", userProfile);
 
-    res.redirect("http://moodlist-frontend.s3-website-us-east-1.amazonaws.com?"+ /*http://localhost:3000/*/
+    res.redirect("http://localhost:3000?"+ /*http://moodlist-frontend.s3-website-us-east-1.amazonaws.com/*/
     qs.stringify({
       access_token: tokenResponse.access_token,
       refresh_token: tokenResponse.refresh_token,
@@ -95,6 +95,7 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
       scope: tokenResponse.scope,
       id: userProfile.id,
       email: userProfile.email,
+      username: userProfile.display_name,
     }));
   }
 });
