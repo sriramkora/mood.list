@@ -7,17 +7,12 @@
   }
   
   .accountPage .div {
-    height: 904px;
-    overflow: hidden;
     position: relative;
     width: 100%;
   }
   
   .accountPage .overlap {
-    height: 904px;
-    left: 0;
-    position: absolute;
-    top: 0;
+    position: relative;
     width: 100%;
   }
   
@@ -93,8 +88,8 @@
     left: 317px;
     letter-spacing: 0;
     line-height: 31.2px;
-    position: absolute;
-    top: 239px;
+    position: relative;
+    top: 3rem;
     width: 236px;
   }
   
@@ -115,8 +110,8 @@
     left: 81px;
     letter-spacing: 0;
     line-height: 62.4px;
-    position: absolute;
-    top: 413px;
+    position: relative;
+    top: 8rem;
     width: 236px;
   }
   
@@ -125,13 +120,10 @@
     font-family: "Inter-SemiBold", Helvetica;
     font-size: 48px;
     font-weight: 600;
-    height: 80px;
-    left: 317px;
-    letter-spacing: 0;
     line-height: 62.4px;
-    position: absolute;
-    top: 159px;
-    width: 358px;
+    position: relative;
+    left: 19.5rem;
+    top:-12rem;
   }
   
   .accountPage .ellipse {
@@ -139,16 +131,16 @@
     border-radius: 102.5px;
     height: 205px;
     left: 81px;
-    position: absolute;
-    top: 160px;
+    top:-15rem;
+    position: relative;
     width: 205px;
   }
   
   .accountPage .overlapWrapper {
     height: 288px;
     left: 81px;
-    position: absolute;
-    top: 512px;
+    position: relative;
+    top: -8rem;
     width: 238px;
   }
   
@@ -175,6 +167,9 @@
   }
   
   .accountPage .textWrapper6 {
+    position: relative;
+    top:1rem;
+    left: -2rem;
     font-weight: 700;
   }
   
@@ -283,22 +278,22 @@
   .accountPage .textWrapper6 {
     color: #426b1f;
     font-family: "Inter-SemiBold", Helvetica;
-    font-size: 48px;
+    font-size: 30px;
     font-weight: 600;
     height: 80px;
-    left: 81px;
+    left: 6rem;
     letter-spacing: 0;
     line-height: 62.4px;
     position: absolute;
-    top: 130px;
-    width: 236px;
+    width: 12rem;
   }
 
   .accountPage .playlistsWrapper {
     height: 288px;
     left: 81px;
-    position: absolute;
-    top: 200px;
+    position: relative;
+    top: 0rem;
+    left: 20%;
     width: 90%;
   }
 
@@ -328,17 +323,24 @@
   }
 
   .accountPage .addButton {
+    position: relative;
+    left: 1rem;
     color: #426b1f;
-    /* background-color: #d9d9d9; */
-    /* border-radius: 50px; */
+    background: transparent;
+    border-radius: 50%;
     height: 150px;
     width: 150px;
-    /* left: 81px; */
-    position: relative;
-    display: inline-block;
-    /* float: left; */
-    /* left: 25px; */
-    /* bottom: 25px; */
-    top: 15px;
   }
+  .accountPage .addButton img{
+    position: relative;
+    left: -6%;
+    top: 8%;
+    height: 150px;
+    width: 150px;
+  }
+  .accountPage .addButton:hover {
+    background:#426b1f;
+  }
+
+  
   

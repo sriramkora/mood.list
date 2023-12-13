@@ -12,7 +12,7 @@ export default function HomePage() {
   const email = searchParams.get("email");
   const username = searchParams.get("username");
   const token = searchParams.get("access_token");
-  const [textValue, setTextValue] = useState('');
+  const [textValue, setTextValue] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,27 +40,31 @@ export default function HomePage() {
   }
 
   const handleGenerateClick = () => {
-    const playlists = JSON.stringify([
-      {
-        date: "Wed, Nov 1",
-        weather: "Rainy",
-        description: "Lorem ipsum...",
-        embedLink:
-          "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-      },
-      {
-        date: "Wed, Nov 1",
-        weather: "Rainy",
-        description: "Lorem ipsum...",
-        embedLink:
-          "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-      },
-    ]);
-    localStorage.setItem('text', textValue);
-    console.log('text: ', localStorage.getItem('text'));
-    localStorage.setItem('resultplaylists', playlists);
-    console.log('playlists: ', localStorage.getItem('resultplaylists'));
-    navigate('/result');
+    if (textValue != "") {
+      const playlists = JSON.stringify([
+        {
+          date: "Wed, Nov 1",
+          weather: "Rainy",
+          description: "Lorem ipsum...",
+          embedLink:
+            "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
+        },
+        {
+          date: "Wed, Nov 1",
+          weather: "Rainy",
+          description: "Lorem ipsum...",
+          embedLink:
+            "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
+        },
+      ]);
+      localStorage.setItem("text", textValue);
+      console.log("text: ", localStorage.getItem("text"));
+      localStorage.setItem("resultplaylists", playlists);
+      console.log("playlists: ", localStorage.getItem("resultplaylists"));
+      navigate("/result");
+    } else {
+      console.log("empty text!");
+    }
   };
 
   return (

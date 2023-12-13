@@ -1,8 +1,9 @@
 import React from "react";
 import classes from "../CSS/AccountPage.module.css";
+import {useNavigate } from "react-router-dom";
 
 export default function AccountPage() {
-  // Sample data from the backend
+  const navigate = useNavigate();
   const playlists = [
     {
       date: "Wed, Nov 1",
@@ -12,35 +13,34 @@ export default function AccountPage() {
         "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
     },
   ];
+
   const user = {
     username: "username",
     numPlaylists: 2,
     joined: "Nov 1, 2023",
   };
+
+  const handlePlaylistClick = (playlist) => {
+    const playlistsArray = [
+      {
+        date: playlist.date,
+        weather: playlist.weather,
+        description: playlist.description,
+        embedLink: playlist.embedLink,
+      }
+    ];
+    console.log("Clicked playlist:", JSON.stringify(playlistsArray));
+    localStorage.setItem("resultplaylists", JSON.stringify(playlistsArray));
+    navigate("/result");
+  };
+
   return (
     <div className={classes.accountPage}>
       <div className={classes.div}>
         <div className={classes.overlap}>
-          <img
-            className={classes.rectangle}
-            alt="Rectangle"
-            src="rectangle-1.svg"
-          />
-          <div className={classes.headerRect} />
-          <div className={classes.textWrapper}>mood.list</div>
-          {/* <div className={classes.group}>
-            <div className={classes.cartButton}>
-              <div className={classes.logoutButton}>Log out</div>
-            </div>
-          </div> */}
           <p className={classes.playlists}>
             <span className={classes.span}> {user.numPlaylists} </span>
-            <span className={classes.textWrapper3}>
-              Playlists
-              <br />
-              Joined{" "}
-            </span>
-            <span className={classes.span}>{user.joined}</span>
+            <span className={classes.textWrapper3}> Playlists </span>
           </p>
           <div className={classes.textWrapper4}>Playlists</div>
           <div className={classes.textWrapper5}>{user.username}</div>
@@ -48,14 +48,18 @@ export default function AccountPage() {
           {playlists.map((playlist, index) => (
             <div className={classes.overlapWrapper} key={index}>
               <div className={classes.overlapGroup1}>
+                <button
+                  className={classes.PlaylistButton}
+                  onClick={() => handlePlaylistClick(playlist)}
+                >
+                  View Playlist
+                </button>
                 <p className={classes.PlaylistInfo}>
                   <span className={classes.textWrapper6}>
                     {playlist.date}
                     <br />
                   </span>
                   <span className={classes.textWrapper7}>
-                    Weather: {playlist.weather}
-                    <br />
                     {playlist.description}
                   </span>
                 </p>
