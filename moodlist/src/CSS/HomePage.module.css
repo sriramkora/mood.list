@@ -24,43 +24,48 @@
     width: 273px;
   }
   .homePage .overlapGroup {
-    background-color: #426b1f;
+    background-color: #45701f;
     border-radius: 30px;
     height: 80px;
     position: relative;
     width: 271px;
-    cursor: pointer;
+  }
+  .homePage .overlapGroup:hover {
+    background-color: #426b1f;
   }
   .homePage .generateButton {
-    color: #ffffff;
+    color: var(--color-gray-100);
     font-family: "Inter-SemiBold", Helvetica;
     font-size: 32px;
     font-weight: 600;
-    height: 80px;
-    left: 0;
     letter-spacing: 0;
     line-height: 41.6px;
     position: absolute;
     text-align: center;
     top: 0;
-    width: 240px;
-    padding-top: 18px;
-    padding-left: 16px;
+    height: 80px;
+    width: 270.99px;
+    background: transparent;
+    border-style: none;
+  }
+  .homePage .generateButton:hover {
+    color: var(--color-gray-400);
+    cursor: pointer;
   }
   .homePage .overlapGroupWrapper {
-    height: 288px;
-    left: 24%;
+    height: 293.2px;
+    left: 22%;
     position: relative;
-    top: -5%;
-    width: 650px;
+    top: -14%;
+    width: 653.2px;
   }
   .homePage .input {
     background-color: #d9d9d9;
     color: black;
     height: 288px;
     position: relative;
-    top: -12%;
-    left: -2%;
+    /* top: -12%;
+    left: -2%; */
     width: 648px;
   }
   .homePage .div {
@@ -79,7 +84,7 @@
     width: 398px;
   }
   .homePage .titleWrapper {
-    color: #426b1f;
+    color: var(--color-primary-800);
     font-family: "Inter-SemiBold", Helvetica;
     font-size: 48px;
     font-weight: 600;

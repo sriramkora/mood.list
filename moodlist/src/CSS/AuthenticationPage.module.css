@@ -25,5 +25,5 @@
   padding: 1rem;
   align-self: center;
   text-align: center;
-  color: rgb(90, 231, 19);
+  color: var(--color-primary-800);
 }
