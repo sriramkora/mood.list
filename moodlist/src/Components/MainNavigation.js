@@ -11,7 +11,8 @@ function MainNavigation() {
       <nav>
         <ul className={classes.list}>
           {/* {token && (< */}
-            <li><Link to="/account">{username}</Link></li>
+          <li><Link to="/"><h1>mood.list</h1></Link></li>
+            <li><Link to="/account" className={classes.accountpagelink}>{username}</Link></li>
             <li>
               <Form action="/logout" method="post">
                 <button>Logout</button>

@@ -1,10 +1,10 @@
 .header {
   max-width: 60rem;
   margin: auto;
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
-  padding-left: 80%;
+  /* padding-left: 80%; */
 }
 
 .list {
@@ -12,12 +12,33 @@
   gap: 1rem;
 }
 
-.list a {
+.list h1{
+  color: var(--color-primary-800);
+  text-decoration: none;
+}
+
+.list h1:hover{
   text-decoration: none;
   color: var(--color-primary-400);
 }
 
+.accountpagelink {
+  text-decoration: none;
+  position: relative;
+  left: 65vw;
+  top:1rem;
+  color: var(--color-primary-400);
+}
+
+.accountpagelink:hover {
+  color: var(--color-primary-800);
+  text-decoration: none;
+}
+
 .list button{
+  position: relative;
+  left: 65vw;
+  top:1rem;
   text-decoration: none;
   color: var(--color-gray-100);
   background-color: #45701f;
@@ -27,9 +48,6 @@
 .list button:hover {
   color: var(--color-gray-400);
   background-color: #426b1f;
-}:hover
-
-.list a:hover,
-.list a.active {
-  color: var(--color-primary-800);
 }
+
+

@@ -1,53 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "../CSS/AccountPage.module.css";
 import plusImage from "../Images/plus.svg";
 import checkImage from "../Images/check.svg";
 
 export default function ResultPage() {
-  // Sample data routed from home page
-  const playlists = [
-    {
-      date: "Wed, Nov 1",
-      weather: "Rainy",
-      description: "Lorem ipsum...",
-      embedLink:
-        "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-    },
-    {
-      date: "Wed, Nov 1",
-      weather: "Rainy",
-      description: "Lorem ipsum...",
-      embedLink:
-        "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-    },
-  ];
-  const generateText = "Lorem ipsum dolor sit amet, consect";
-  // const [isClicked, setIsClicked] = React.useState(false);
-  const [isClicked, setIsClicked] = React.useState(new Array(playlists.length).fill(false));
-  const handleButtonClick = (index) => {
-    const newIsClicked = [...isClicked];
-    newIsClicked[index] = !newIsClicked[index];
-    // setIsClicked(!isClicked);
-    setIsClicked(newIsClicked);
-    console.log("cleec");
-  }
+  const playlists = JSON.parse(localStorage.getItem('resultplaylists'));
+  const [clickedPlaylist, setClickedPlaylist] = useState(null);
+  const dateOptions = {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  };
+  const handleButtonClick = async (embedLink, description, date) => {
+    const currentDate = new Date();
+    const formattedDate = new Intl.DateTimeFormat('en-US', dateOptions).format(currentDate);
+  
+    console.log("Clicked Playlist:", embedLink);
+    console.log("userid: ", localStorage.getItem('userid'));
+    console.log("date: ", date);
+  
+    const response = await fetch(
+      process.env.REACT_APP_HOST + "/putPlaylist",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userid: localStorage.getItem('userid'),
+          embedlink: embedLink,
+          date: date,
+          text: localStorage.getItem('text'),
+          description: description,
+        }),
+      }
+    );
+  
+    if (response.ok) {
+      const data = await response.json();
+      console.log("putPlaylist API request successful with message:", data.message);
+    } else {
+      console.error("putPlaylist API request failed with status:", response.status);
+    }
+  
+    setClickedPlaylist(embedLink);
+  };
+  
+
   return (
     <div className={classes.accountPage}>
       <div className={classes.div}>
-        <div className={classes.overlap}>
-          <img
+        {/* <div className={classes.overlap}>
+        <img
             className={classes.rectangle}
             alt="Rectangle"
             src="rectangle-1.svg"
           />
           <div className={classes.headerRect} />
           <div className={classes.textWrapper}>mood.list</div>
-          {/* <div className={classes.group}>
-            <div className={classes.cartButton}>
-              <div className={classes.logoutButton}>Profile</div>
-            </div>
-          </div> */}
-        </div>
+        </div> */}
         <div className={classes.textWrapper6}>Results</div>
         <div className={classes.playlistsWrapper}>
           {playlists.map((playlist, index) => (
@@ -59,31 +71,23 @@ export default function ResultPage() {
                 width="50%"
                 height="152"
                 frameBorder="0"
-                allowfullscreen=""
+                allowFullScreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
               ></iframe>
-              {/* {isClicked[index] ? (
-                <img
-                  src={checkImage}
-                  alt="check"
-                  className={classes.addButton}
-                  onClick={() => handleButtonClick(index)}
-                  />
-              ) : (
-                <img src={plusImage} alt="plus" className={classes.addButton} />
-              )} */}
-              <img
-                src={isClicked[index] ? checkImage : plusImage}
-                alt={isClicked[index] ? "check" : "plus"}
+              <button
                 className={classes.addButton}
-                onClick={() => handleButtonClick(index)} // Attach the onClick handler to both images
-              />
+                onClick={() => handleButtonClick(playlist.embedLink,playlist.description,playlist.date)}
+              >
+                {clickedPlaylist === playlist.embedLink ? (
+                  <img src={checkImage} alt="check" />
+                ) : (
+                  <img src={plusImage} alt="plus" />
+                )}
+              </button>
             </div>
           ))}
         </div>
-        <div className={classes.textWrapper8}>Generated from: </div>
-        <div className={classes.textWrapper9}>"{generateText}"</div>
       </div>
     </div>
   );
