@@ -1,6 +1,6 @@
 const APP_PORT = "8080";
 const APP_HOST = process.env.APP_HOST;
-const APP_HOST_FRONTEND = "http://localhost:3000" //http://moodlist-frontend.s3-website-us-east-1.amazonaws.com
+const APP_HOST_FRONTEND = "http://moodlist-frontend.s3-website-us-east-1.amazonaws.com" //http://localhost:3000
 const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;
 const spotifyClientsecret = process.env.SPOTIFY_CLIENT_SECRET;
 const spotifyAccountsHost = "https://accounts.spotify.com";
