@@ -5,6 +5,7 @@ import checkImage from "../Images/check.svg";
 
 export default function ResultPage() {
   const playlists = JSON.parse(localStorage.getItem('resultplaylists'));
+  const generateText = localStorage.getItem('text');
   const [clickedPlaylist, setClickedPlaylist] = useState(null);
   const dateOptions = {
     weekday: 'short',
@@ -61,6 +62,10 @@ export default function ResultPage() {
           <div className={classes.textWrapper}>mood.list</div>
         </div> */}
         <div className={classes.textWrapper6}>Results</div>
+        <div className={classes.generateText}>
+          <div className={classes.textWrapper8}>Generated from: </div>
+          <div className={classes.textWrapper9}>"{generateText}"</div>
+        </div>
         <div className={classes.playlistsWrapper}>
           {playlists.map((playlist, index) => (
             <div className={classes.playlistItem} key={index}>
