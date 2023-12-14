@@ -105,7 +105,7 @@ export default function AccountPage() {
                     View Playlist
                   </button>
                   <p className={classes.PlaylistInfo}>
-                    <span className={classes.textWrapper6}>
+                    <span className={classes.textWrapper10}>
                       {playlist.date}
                       <br />
                     </span>
