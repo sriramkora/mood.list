@@ -12,18 +12,41 @@ export default function ResultPage() {
     day: 'numeric',
     year: 'numeric',
   };
-  const handleButtonClick = (embedLink) => {
+  const handleButtonClick = async (embedLink, description, date) => {
     const currentDate = new Date();
     const formattedDate = new Intl.DateTimeFormat('en-US', dateOptions).format(currentDate);
-    
-    // Log the corresponding playlist.embedLink to the console
+  
     console.log("Clicked Playlist:", embedLink);
     console.log("userid: ", localStorage.getItem('userid'));
-    console.log("date: ", formattedDate)
-
-    // Update the state to track the clicked playlist
+    console.log("date: ", date);
+  
+    const response = await fetch(
+      process.env.REACT_APP_HOST + "/putPlaylist",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userid: localStorage.getItem('userid'),
+          embedlink: embedLink,
+          date: date,
+          text: localStorage.getItem('text'),
+          description: description,
+        }),
+      }
+    );
+  
+    if (response.ok) {
+      const data = await response.json();
+      console.log("putPlaylist API request successful with message:", data.message);
+    } else {
+      console.error("putPlaylist API request failed with status:", response.status);
+    }
+  
     setClickedPlaylist(embedLink);
   };
+  
 
   return (
     <div className={classes.accountPage}>
@@ -54,7 +77,7 @@ export default function ResultPage() {
               ></iframe>
               <button
                 className={classes.addButton}
-                onClick={() => handleButtonClick(playlist.embedLink)}
+                onClick={() => handleButtonClick(playlist.embedLink,playlist.description,playlist.date)}
               >
                 {clickedPlaylist === playlist.embedLink ? (
                   <img src={checkImage} alt="check" />
