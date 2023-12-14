@@ -2,6 +2,7 @@ const { sign, verify } = require('jsonwebtoken');
 const { compare } = require('bcryptjs');
 const { NotAuthError } = require('./errors');
 const crypto = require("crypto");
+const logger = require('pino')()
 
 const C = require('../constants/consts');
 
@@ -24,13 +25,13 @@ function checkAuthMiddleware(req, res, next) {
     return next();
   }
   if (!req.headers.authorization) {
-    console.log('NOT AUTH. AUTH HEADER MISSING.');
+    logger. error('NOT AUTH. AUTH HEADER MISSING.');
     return next(new NotAuthError('Not authenticated.'));
   }
   const authFragments = req.headers.authorization.split(' ');
 
   if (authFragments.length !== 2) {
-    console.log('NOT AUTH. AUTH HEADER INVALID.');
+    logger. error('NOT AUTH. AUTH HEADER INVALID.');
     return next(new NotAuthError('Not authenticated.'));
   }
   const authToken = authFragments[1];
@@ -38,7 +39,7 @@ function checkAuthMiddleware(req, res, next) {
     const validatedToken = validateJSONToken(authToken);
     req.token = validatedToken;
   } catch (error) {
-    console.log('NOT AUTH. TOKEN INVALID.');
+    logger. error('NOT AUTH. TOKEN INVALID.');
     return next(new NotAuthError('Not authenticated.'));
   }
   next();

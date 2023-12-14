@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const logger = require('pino')()
 
 const eventRoutes = require('./routes/events');
 const authRoutes = require('./routes/auth');
@@ -28,5 +29,5 @@ app.use((error, req, res, next) => {
 
 app.use(auxRoutes);
 
-console.log("Starting server. To login use: " + C.APP_HOST + "/login")
+logger.info("Starting server. To login use: " + C.APP_HOST + "/login")
 app.listen(C.APP_PORT);
