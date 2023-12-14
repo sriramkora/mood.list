@@ -42,7 +42,7 @@ export async function action({ request }) {
   //   password: data.get("password"),
   // };
 
-  return redirect(process.env.REACT_APP_HOST + "/login");
+  return redirect(process.env.REACT_APP_HOST + "prim/login");
 
   // const response = await fetch("http://localhost:8080/" + mode, {
   //   method: "POST",
