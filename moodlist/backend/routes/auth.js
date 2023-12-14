@@ -31,7 +31,7 @@ router.post("/signup", async (req, res, next) => {
       if (existingUser) {
         errors.email = "Email exists already.";
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   if (!isValidText(data.password, 6)) {
@@ -67,14 +67,14 @@ router.get("/login", async (req, res) => {
   res.redirect(
     302,
     C.spotifyAccountsHost +
-      "/authorize?" +
-      qs.stringify({
-        response_type: "code",
-        client_id: C.spotifyClientId,
-        scope: scope,
-        redirect_uri: redirect_uri,
-        state: state,
-      })
+    "/authorize?" +
+    qs.stringify({
+      response_type: "code",
+      client_id: C.spotifyClientId,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state,
+    })
   );
 });
 
@@ -96,7 +96,7 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
     let jsonString = JSON.stringify(tokenResponse, null, 2);
     logger.debug(jsonString);
     let userProfile = await getUserProfile(tokenResponse.access_token);
-    logger.debug("userprofile :", userProfile);
+    logger.debug("userprofile :" + userProfile);
 
     const putUserParams = {
       TableName: "user",
@@ -114,22 +114,22 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
       if (error) {
         console.error("Error saving user data:", error);
       } else {
-        logger.info("user data saved successfully:", data);
+        logger.info("user data saved successfully:" + data);
       }
     });
 
     res.redirect(
       C.APP_HOST_FRONTEND +
-        "/?" +
-        qs.stringify({
-          access_token: tokenResponse.access_token,
-          refresh_token: tokenResponse.refresh_token,
-          expires_in: tokenResponse.expires_in,
-          scope: tokenResponse.scope,
-          id: userProfile.id,
-          email: userProfile.email,
-          username: userProfile.display_name,
-        })
+      "/?" +
+      qs.stringify({
+        access_token: tokenResponse.access_token,
+        refresh_token: tokenResponse.refresh_token,
+        expires_in: tokenResponse.expires_in,
+        scope: tokenResponse.scope,
+        id: userProfile.id,
+        email: userProfile.email,
+        username: userProfile.display_name,
+      })
     );
   }
 });
@@ -157,7 +157,7 @@ async function getAccessTokens(authzCode) {
     C.spotifyAccountsHost + "/api/token",
     reqOptions
   ).then((res) => res.json());
-  // logger.debug("Response of API Token = ", jsonResp);
+  // logger.debug("Response of API Token = " + jsonResp);
   return jsonResp;
 }
 
@@ -174,15 +174,14 @@ async function getUserProfile(acsToken) {
 
   let jsonResp = await fetch(C.spotifyApisHost + "/v1/me", reqOptions)
     .then(
-      
-    (res) => {
-      logger.info("Response for /v1/me is: ", res)
-      res.json()}
-     )
+      async (res) => {
+        return await res.json()
+      }
+    )
     .catch(err => {
       logger.error("Caught error when calling /v1/me : " + err);
     })
-  logger.info("User Profile = ", jsonResp);
+  logger.info("User Profile = " + JSON.stringify(jsonResp));
   return jsonResp;
 }
 
@@ -198,8 +197,8 @@ router.post("/fetchPlaylists", async (req, res) => {
   const data = req.body;
   const searchQuery = data.message.replace(/ /g, "%2520");
 
-  logger.debug("searchQuery: ", searchQuery);
-  logger.debug("accessToken: ", data.accessToken);
+  logger.debug("searchQuery: " + searchQuery);
+  logger.debug("accessToken: " + data.accessToken);
 
   const apiUrl = `https://api.spotify.com/v1/search?q=${searchQuery}&type=playlist&limit=5`;
 
@@ -235,7 +234,7 @@ router.post("/fetchPlaylists", async (req, res) => {
           "?utm_source=generator",
       }));
 
-      logger.debug("playlists: ", JSON.stringify(playlists));
+      logger.debug("playlists: " + JSON.stringify(playlists));
       res.status(200).json({
         message: JSON.stringify(playlists),
       });
@@ -262,9 +261,9 @@ router.post("/putPlaylist", async (req, res) => {
 
   dynamoDB.put(putplaylistParams, (error, data) => {
     if (error) {
-      console.error("Error saving playlist data:", error);
+      logger.error("Error saving playlist data:" + error);
     } else {
-      logger.info("playlist data saved successfully:", data);
+      logger.info("playlist data saved successfully:" + data);
     }
   });
 
@@ -288,7 +287,7 @@ router.post("/getAccount", async (req, res) => {
     if (error) {
       console.error("Error querying data:", error);
     } else {
-      logger.info("Account data queried successfully:", data.Items);
+      logger.info("Account data queried successfully:" + data.Items);
       res.status(200).json({
         playlists: JSON.stringify(data.Items),
         numPlaylists: data.Items.length.toString(),
@@ -296,7 +295,7 @@ router.post("/getAccount", async (req, res) => {
     }
   });
 
-  
+
 });
 
 module.exports = router;
