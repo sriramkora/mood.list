@@ -1,5 +1,5 @@
 const APP_PORT = "8080";
-const APP_HOST = "http://localhost:" + APP_PORT;
+const APP_HOST = process.env.APP_HOST;
 const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;
 const spotifyClientsecret = process.env.SPOTIFY_CLIENT_SECRET;
 const spotifyAccountsHost = "https://accounts.spotify.com";

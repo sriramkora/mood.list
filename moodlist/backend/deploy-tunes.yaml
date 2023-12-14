@@ -21,6 +21,8 @@ spec:
       - name: tunes-app
         image: allennyu/tunes-backend:latest
         env:
+        - name: APP_HOST
+          value: "https://9yhvjhtr7l.execute-api.us-east-1.amazonaws.com/default/prim"
         - name: SPOTIFY_CLIENT_ID
           valueFrom:
             secretKeyRef:

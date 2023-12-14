@@ -28,5 +28,5 @@ app.use((error, req, res, next) => {
 
 app.use(auxRoutes);
 
-console.log("Starting server. To login use: http://localhost:" + C.APP_PORT + "/login")
+console.log("Starting server. To login use: " + C.APP_HOST + "/login")
 app.listen(C.APP_PORT);
