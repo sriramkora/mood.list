@@ -58,6 +58,7 @@ export default function HomePage() {
             }
           );
           if (response.ok) {
+            success = true;
             const data = await response.json();
             const keywords = data.message;
             console.log("keywords: ", keywords);
