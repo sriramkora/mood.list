@@ -302,7 +302,7 @@
   height: 288px;
   left: 81px;
   position: relative;
-  top: 15%;
+  top: 0%;
   left: 20%;
   width: 90%;
 }
@@ -373,10 +373,7 @@
 .accountPage .generateText {
   background-color: #d9d9d9;
   color: black;
-  height: 144px;
   position: relative;
-  /* top: -12%; */
-  left: 38%;
-  top: 100px;
-  width: 30%;
+  margin: 100px auto 0; /* Vertically centered with 100px margin from the top */
+  width: 80%;
 }
