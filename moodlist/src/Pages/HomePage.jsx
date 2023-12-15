@@ -42,63 +42,76 @@ export default function HomePage() {
   const handleGenerateClick = async () => {
     try {
       if (textValue !== "") {
-        const response = await fetch(
-          process.env.REACT_APP_HOST_LAMBDA + "/getKeywords",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              message: textValue,
-            }),
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const keywords = data.message;
-          console.log("keywords: ", keywords);
-          const playlistsResponse = await fetch(
-            process.env.REACT_APP_HOST + "/fetchPlaylists",
+        let retryCount = 0;
+        let success = false;
+        while (retryCount < 3 && !success) {
+          const response = await fetch(
+            process.env.REACT_APP_HOST_LAMBDA + "/getKeywords",
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                message: keywords,
-                accessToken: localStorage.getItem('token'),
+                message: textValue,
               }),
             }
           );
-          if (playlistsResponse.ok) {
-            const playlistsData = await playlistsResponse.json();
-            console.log('playlistsData: ',playlistsData);
-            const playlists = playlistsData.message;
-            // JSON.stringify([
-            //   {
-            //     date: "Wed, Nov 1",
-            //     description: "Lorem ipsum...",
-            //     embedLink:
-            //       "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
-            //   },
-            //   {
-            //     date: "Wed, Nov 1",
-            //     description: "Lorem ipsum...",
-            //     embedLink:
-            //       "https://open.spotify.com/embed/playlist/2GqoWQhUkNvJhI0TNOGx2z?utm_source=generator",
-            //   },
-            // ]);
-            localStorage.setItem("text", textValue);
-            console.log("text: ", localStorage.getItem("text"));
-            localStorage.setItem("resultplaylists", playlists);
-            console.log("playlists: ", localStorage.getItem("resultplaylists"));
-            navigate("/result");
-          }else {
-            console.error("fetchPlaylists API request failed with status:", playlistsResponse.status);
+          if (response.ok) {
+            const data = await response.json();
+            const keywords = data.message;
+            console.log("keywords: ", keywords);
+            const playlistsResponse = await fetch(
+              process.env.REACT_APP_HOST + "/fetchPlaylists",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  message: keywords,
+                  accessToken: localStorage.getItem("token"),
+                }),
+              }
+            );
+            if (playlistsResponse.ok) {
+              const playlistsData = await playlistsResponse.json();
+              console.log("playlistsData: ", playlistsData);
+              const playlists = playlistsData.message;
+              // JSON.stringify([
+              //   {
+              //     date: "Wed, Nov 1",
+              //     description: "Lorem ipsum...",
+              //     embedLink:
+              //       "https://open.spotify.com/embed/playlist/37nCSouvwoPLsM91nawryP?utm_source=generator",
+              //   },
+              //   {
+              //     date: "Wed, Nov 1",
+              //     description: "Lorem ipsum...",
+              //     embedLink:
+              //       "https://open.spotify.com/embed/playlist/2GqoWQhUkNvJhI0TNOGx2z?utm_source=generator",
+              //   },
+              // ]);
+              localStorage.setItem("text", textValue);
+              console.log("text: ", localStorage.getItem("text"));
+              localStorage.setItem("resultplaylists", playlists);
+              console.log(
+                "playlists: ",
+                localStorage.getItem("resultplaylists")
+              );
+              navigate("/result");
+            } else {
+              console.error(
+                "fetchPlaylists API request failed with status:",
+                playlistsResponse.status
+              );
+            }
+          } else {
+            console.error(
+              "getKeywords API request failed with status:",
+              response.status
+            );
           }
-        } else {
-          console.error("getKeywords API request failed with status:", response.status);
         }
       } else {
         console.log("empty text!");
