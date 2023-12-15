@@ -59,12 +59,12 @@ router.post("/signup", async (req, res, next) => {
 });
 
 router.get("/login", async (req, res) => {
-  logger.debug("/login called");
+  logger.info("/login called");
   let state = U.generateUUID();
   let scope = C.spotifyAuthzScope;
   let redirect_uri = C.APP_HOST + "/callback/spotifyAuthz";
-  logger.debug(C.spotifyClientId);
-  logger.debug(C.spotifyClientsecret);
+  logger.info(C.spotifyClientId);
+  logger.info(C.spotifyClientsecret);
 
   res.redirect(
     302,
@@ -81,11 +81,11 @@ router.get("/login", async (req, res) => {
 });
 
 router.get("/callback/spotifyAuthz", async (req, res) => {
-  logger.debug("callback received");
+  logger.info("callback received");
   error = req.query.error;
-  logger.debug("error: " + error);
+  logger.info("error: " + error);
   state = req.query.state;
-  logger.debug("state: " + state);
+  logger.info("state: " + state);
   if (error != null) {
     res.status(401);
     res.send("Unable to Authenticate. Error: " + error);
@@ -96,9 +96,9 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
     code = req.query.code;
     let tokenResponse = await getAccessTokens(code);
     let jsonString = JSON.stringify(tokenResponse, null, 2);
-    logger.debug(jsonString);
+    logger.info(jsonString);
     let userProfile = await getUserProfile(tokenResponse.access_token);
-    logger.debug("userprofile :" + userProfile);
+    logger.info("userprofile :" + userProfile);
 
     const putUserParams = {
       TableName: "user",
@@ -114,9 +114,9 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
 
     dynamoDB.put(putUserParams, (error, data) => {
       if (error) {
-        console.error("Error saving user data:", error);
+        logger.error("Error saving user data:", error);
       } else {
-        logger.info("user data saved successfully:" + data);
+        logger.info("user data saved successfully:" + JSON.stringify(data));
       }
     });
 
@@ -159,7 +159,7 @@ async function getAccessTokens(authzCode) {
     C.spotifyAccountsHost + "/api/token",
     reqOptions
   ).then((res) => res.json());
-  // logger.debug("Response of API Token = " + jsonResp);
+  // logger.info("Response of API Token = " + jsonResp);
   return jsonResp;
 }
 
@@ -187,7 +187,7 @@ async function getUserProfile(acsToken) {
 
 router.post("/getKeywords", async (req, res) => {
   const data = req.body;
-  logger.debug(data.message);
+  logger.info(data.message);
   res.status(200).json({
     message: "fire happy flower smooth",
   });
@@ -197,8 +197,8 @@ router.post("/fetchPlaylists", async (req, res) => {
   const data = req.body;
   const searchQuery = data.message.replace(/ /g, "%2520");
 
-  logger.debug("searchQuery: " + searchQuery);
-  logger.debug("accessToken: " + data.accessToken);
+  logger.info("searchQuery: " + searchQuery);
+  logger.info("accessToken: " + data.accessToken);
 
   const apiUrl = `https://api.spotify.com/v1/search?q=${searchQuery}&type=playlist&limit=5`;
 
@@ -234,20 +234,20 @@ router.post("/fetchPlaylists", async (req, res) => {
           "?utm_source=generator",
       }));
 
-      logger.debug("playlists: " + JSON.stringify(playlists));
+      logger.info("playlists: " + JSON.stringify(playlists));
       res.status(200).json({
         message: JSON.stringify(playlists),
       });
     })
     .catch((error) => {
-      console.error("Error:", error);
+      logger.error("Error:", error);
     });
 });
 
 router.post("/putPlaylist", async (req, res) => {
   const data = req.body;
-  logger.debug(data.userid);
-  logger.debug(data.embedlink);
+  logger.info(data.userid);
+  logger.info(data.embedlink);
   const putplaylistParams = {
     TableName: "playlists",
     Item: {
@@ -263,7 +263,7 @@ router.post("/putPlaylist", async (req, res) => {
     if (error) {
       logger.error("Error saving playlist data:" + error);
     } else {
-      logger.info("playlist data saved successfully:" + data);
+      logger.info("playlist data saved successfully:" + JSON.stringify(data));
     }
   });
 
@@ -278,19 +278,20 @@ router.post("/putPlaylist", async (req, res) => {
   const params = {
     MessageBody: JSON.stringify(messageBody),
     QueueUrl: queueUrl,
-    QueueUrl: queueUrl,
     DelaySeconds: Number("0"),
     MessageAttributes: null,
     MessageSystemAttributes: null,
     MessageDeduplicationId: null,
     MessageGroupId: "1",
   };
-
+  
+  logger.info("SQS Params = " + JSON.stringify(params));
   sqs.sendMessage(params, (sqserr, sqsdata) => {
     if (sqserr) {
-      console.error("Error sending message to SQS:", sqserr);
+      logger.error("Error sending message to SQS:" + sqserr);
     } else {
-      console.log("SQS Message sent successfully:", sqsdata.MessageId);
+      logger.info("SQS Message sent successfully. SQS Data" + JSON.stringify(sqsdata));
+      logger.info("SQS Message sent successfully. Message ID:"  + sqsdata.MessageId);
     }
   });
 
@@ -301,7 +302,7 @@ router.post("/putPlaylist", async (req, res) => {
 
 router.post("/getAccount", async (req, res) => {
   const data = req.body;
-  logger.debug(data.userid);
+  logger.info(data.userid);
   const queryAccountParams = {
     TableName: "playlists",
     KeyConditionExpression: "userid = :userid",
@@ -312,7 +313,7 @@ router.post("/getAccount", async (req, res) => {
 
   dynamoDB.query(queryAccountParams, (error, data) => {
     if (error) {
-      console.error("Error querying data:", error);
+      logger.error("Error querying data:", error);
     } else {
       logger.info("Account data queried successfully:" + data.Items);
       res.status(200).json({
