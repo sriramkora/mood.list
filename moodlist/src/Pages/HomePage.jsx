@@ -56,7 +56,7 @@ export default function HomePage() {
         );
         if (response.ok) {
           const data = await response.json();
-          const keywords = data.key_phrases + " "+ data.sentiment;
+          const keywords = data.message;
           console.log("keywords: ", keywords);
           const playlistsResponse = await fetch(
             process.env.REACT_APP_HOST + "/fetchPlaylists",
