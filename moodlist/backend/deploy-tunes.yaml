@@ -33,6 +33,16 @@ spec:
             secretKeyRef:
               name: backend-secrets
               key: SPOTIFY_CLIENT_SECRET
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: AWS_ACCESS_KEY
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: AWS_SECRET_KEY
         ports:
         - containerPort: 8080
           name: tunes-http-port
@@ -40,7 +50,7 @@ spec:
           httpGet:
             path: /live
             port: tunes-http-port
-          initialDelaySeconds: 10
+          initialDelaySeconds: 5
           timeoutSeconds: 10
           periodSeconds: 5
           failureThreshold: 2
@@ -48,7 +58,7 @@ spec:
           httpGet:
             path: /ready
             port: tunes-http-port
-          initialDelaySeconds: 10
+          initialDelaySeconds: 5
           timeoutSeconds: 10
           periodSeconds: 10
           failureThreshold: 3
