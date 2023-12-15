@@ -1,7 +1,7 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const qs = require("qs");
-const logger = require('pino')()
+const logger = require("pino")();
 
 const { add, get } = require("../data/user");
 const { isValidEmail, isValidText } = require("../util/validation");
@@ -17,6 +17,8 @@ AWS.config.update({
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
+const sqs = new AWS.SQS();
+
 const router = express.Router();
 
 router.post("/signup", async (req, res, next) => {
@@ -31,7 +33,7 @@ router.post("/signup", async (req, res, next) => {
       if (existingUser) {
         errors.email = "Email exists already.";
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   if (!isValidText(data.password, 6)) {
@@ -57,7 +59,7 @@ router.post("/signup", async (req, res, next) => {
 });
 
 router.get("/login", async (req, res) => {
-  logger.debug('/login called')
+  logger.debug("/login called");
   let state = U.generateUUID();
   let scope = C.spotifyAuthzScope;
   let redirect_uri = C.APP_HOST + "/callback/spotifyAuthz";
@@ -67,14 +69,14 @@ router.get("/login", async (req, res) => {
   res.redirect(
     302,
     C.spotifyAccountsHost +
-    "/authorize?" +
-    qs.stringify({
-      response_type: "code",
-      client_id: C.spotifyClientId,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state,
-    })
+      "/authorize?" +
+      qs.stringify({
+        response_type: "code",
+        client_id: C.spotifyClientId,
+        scope: scope,
+        redirect_uri: redirect_uri,
+        state: state,
+      })
   );
 });
 
@@ -120,16 +122,16 @@ router.get("/callback/spotifyAuthz", async (req, res) => {
 
     res.redirect(
       C.APP_HOST_FRONTEND +
-      "/?" +
-      qs.stringify({
-        access_token: tokenResponse.access_token,
-        refresh_token: tokenResponse.refresh_token,
-        expires_in: tokenResponse.expires_in,
-        scope: tokenResponse.scope,
-        id: userProfile.id,
-        email: userProfile.email,
-        username: userProfile.display_name,
-      })
+        "/?" +
+        qs.stringify({
+          access_token: tokenResponse.access_token,
+          refresh_token: tokenResponse.refresh_token,
+          expires_in: tokenResponse.expires_in,
+          scope: tokenResponse.scope,
+          id: userProfile.id,
+          email: userProfile.email,
+          username: userProfile.display_name,
+        })
     );
   }
 });
@@ -173,14 +175,12 @@ async function getUserProfile(acsToken) {
   };
 
   let jsonResp = await fetch(C.spotifyApisHost + "/v1/me", reqOptions)
-    .then(
-      async (res) => {
-        return await res.json()
-      }
-    )
-    .catch(err => {
-      logger.error("Caught error when calling /v1/me : " + err);
+    .then(async (res) => {
+      return await res.json();
     })
+    .catch((err) => {
+      logger.error("Caught error when calling /v1/me : " + err);
+    });
   logger.info("User Profile = " + JSON.stringify(jsonResp));
   return jsonResp;
 }
@@ -267,6 +267,33 @@ router.post("/putPlaylist", async (req, res) => {
     }
   });
 
+  const queueUrl =
+    "https://sqs.us-east-1.amazonaws.com/116485250262/playlist.fifo";
+
+  const messageBody = {
+    email: data.email,
+    message: data.embedlink,
+  };
+
+  const params = {
+    MessageBody: JSON.stringify(messageBody),
+    QueueUrl: queueUrl,
+    QueueUrl: queueUrl,
+    DelaySeconds: Number("0"),
+    MessageAttributes: null,
+    MessageSystemAttributes: null,
+    MessageDeduplicationId: null,
+    MessageGroupId: "1",
+  };
+
+  sqs.sendMessage(params, (sqserr, sqsdata) => {
+    if (sqserr) {
+      console.error("Error sending message to SQS:", sqserr);
+    } else {
+      console.log("SQS Message sent successfully:", sqsdata.MessageId);
+    }
+  });
+
   res.status(200).json({
     message: "Playlist saved successfully!",
   });
@@ -294,8 +321,6 @@ router.post("/getAccount", async (req, res) => {
       });
     }
   });
-
-
 });
 
 module.exports = router;

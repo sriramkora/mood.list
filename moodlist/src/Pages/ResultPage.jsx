@@ -34,6 +34,7 @@ export default function ResultPage() {
           date: date,
           text: localStorage.getItem('text'),
           description: description,
+          email: localStorage.getItem('email'),
         }),
       }
     );
