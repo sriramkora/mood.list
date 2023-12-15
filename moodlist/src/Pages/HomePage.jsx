@@ -43,7 +43,7 @@ export default function HomePage() {
     try {
       if (textValue !== "") {
         const response = await fetch(
-          process.env.REACT_APP_HOST + "/getKeywords",
+          process.env.REACT_APP_HOST_LAMBDA + "/getKeywords",
           {
             method: "POST",
             headers: {
@@ -56,7 +56,8 @@ export default function HomePage() {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log("keywords: ", data.message);
+          const keywords = data.key_phrases + " "+ data.sentiment;
+          console.log("keywords: ", keywords);
           const playlistsResponse = await fetch(
             process.env.REACT_APP_HOST + "/fetchPlaylists",
             {
@@ -65,7 +66,7 @@ export default function HomePage() {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                message: data.message,
+                message: keywords,
                 accessToken: localStorage.getItem('token'),
               }),
             }
