@@ -16,5 +16,5 @@ phases:
       - echo "Build completed"
 
 artifacts:
-  files: "**/moodlist/*"
-  base-directory: "build"
+  files: "**/*"
+  base-directory: "moodlist/build"
