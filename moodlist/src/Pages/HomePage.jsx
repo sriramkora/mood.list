@@ -111,6 +111,7 @@ export default function HomePage() {
               "getKeywords API request failed with status:",
               response.status
             );
+            retryCount++;
           }
         }
       } else {
