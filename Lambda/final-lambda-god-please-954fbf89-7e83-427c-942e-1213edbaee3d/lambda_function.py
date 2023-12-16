@@ -5,7 +5,7 @@ import json
 
 API_KEY = os.environ['API_KEY']
 API_SECRET = os.environ['API_SECRET']
-
+OPENAI_KEY = os.environ['OPENAI_KEY']
 def lambda_handler(event, context):
     api_endpoint = 'https://api.openai.com/v1/chat/completions'
     print('event: ', event['body'])
@@ -33,7 +33,7 @@ def lambda_handler(event, context):
         ]
       }
 
-    authorization_token = 'Bearer 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'
+    authorization_token = 'Bearer ' + OPENAI_KEY
 
     headers = {
         'Content-Type': 'application/json',
